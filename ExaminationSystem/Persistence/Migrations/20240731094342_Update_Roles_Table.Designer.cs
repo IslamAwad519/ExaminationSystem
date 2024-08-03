@@ -4,6 +4,7 @@ using ExaminationSystem.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExaminationSystem.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240731094342_Update_Roles_Table")]
+    partial class Update_Roles_Table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,35 +56,6 @@ namespace ExaminationSystem.Persistence.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "fdf8fc8c-d111-4eb6-8259-31da89d71f93",
-                            ConcurrencyStamp = "be8d8ccc-c1cf-4d14-bafb-1d1f9012b803",
-                            IsDefault = false,
-                            IsDeleted = false,
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "d9c493be-9039-48e7-8814-f6eca41cc21a",
-                            ConcurrencyStamp = "28413dd7-5b4b-4931-80fa-521184425050",
-                            IsDefault = false,
-                            IsDeleted = false,
-                            Name = "Instructor",
-                            NormalizedName = "INSTRUCTOR"
-                        },
-                        new
-                        {
-                            Id = "4eed41ca-cd80-463b-995b-3371c972e638",
-                            ConcurrencyStamp = "d100e61d-33d4-47e3-9ec4-6426e640c44b",
-                            IsDefault = true,
-                            IsDeleted = false,
-                            Name = "Student",
-                            NormalizedName = "STUDENT"
-                        });
                 });
 
             modelBuilder.Entity("ExaminationSystem.Models.Entities.ApplicationUser", b =>
@@ -157,26 +131,6 @@ namespace ExaminationSystem.Persistence.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "16096978-d3a5-45be-bb63-4e05428a8ac9",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "3b3ae3f5-437d-42dc-8b29-bae6304552fc",
-                            Email = "admin@test.com",
-                            EmailConfirmed = true,
-                            FirstName = "Admin",
-                            LastName = "Test",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@TEST.COM",
-                            NormalizedUserName = "ADMIN@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENg1YNyZwDTiN1671zRpHxoM7EfNu/HDEZCWRbeMxPeZCs9DvLBfCPD6dcRYYtQgiA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "71E18D851D214F5B96D32DA0E566B629",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@test.com"
-                        });
                 });
 
             modelBuilder.Entity("ExaminationSystem.Models.Entities.Choice", b =>
@@ -307,10 +261,6 @@ namespace ExaminationSystem.Persistence.Migrations
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TotalGrade")
                         .HasColumnType("int");
@@ -704,13 +654,6 @@ namespace ExaminationSystem.Persistence.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "16096978-d3a5-45be-bb63-4e05428a8ac9",
-                            RoleId = "fdf8fc8c-d111-4eb6-8259-31da89d71f93"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

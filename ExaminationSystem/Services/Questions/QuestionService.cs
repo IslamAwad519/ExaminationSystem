@@ -1,4 +1,5 @@
-﻿using ExaminationSystem.Models.Enums;
+﻿using ExaminationSystem.Models.Entities;
+using ExaminationSystem.Models.Enums;
 
 namespace ExaminationSystem.Services.Questions;
 
@@ -43,6 +44,16 @@ public class QuestionService : IQuestionService
         _context.Choices.AddRange(choices);
         await _context.SaveChangesAsync();
         return question;
+    }
+
+    public async Task<bool> DeleteQuestionsForSpecificInstructor(int questionId, string instructorId)
+    {
+        var question = await _context.Questions
+        .FirstOrDefaultAsync(q => q.Id == questionId && q.CreatedById == instructorId);
+
+        return question is null 
+            ? false 
+            : true;
     }
 
     public async Task<IEnumerable<Question>> GetQuestionsForInstructor(string createdBy)

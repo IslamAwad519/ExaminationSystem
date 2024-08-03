@@ -4,6 +4,7 @@ using ExaminationSystem.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExaminationSystem.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240731094617_Add_Default_Roles_And_Users")]
+    partial class Add_Default_Roles_And_Users
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,7 +174,7 @@ namespace ExaminationSystem.Persistence.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TEST.COM",
                             NormalizedUserName = "ADMIN@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENg1YNyZwDTiN1671zRpHxoM7EfNu/HDEZCWRbeMxPeZCs9DvLBfCPD6dcRYYtQgiA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECubtq/yYGI2iko03dp7WYCZAr2zNgUjTcC5b9yPTXVXNCSyBZaPotsYtRUfdUdRUA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "71E18D851D214F5B96D32DA0E566B629",
                             TwoFactorEnabled = false,
@@ -307,10 +310,6 @@ namespace ExaminationSystem.Persistence.Migrations
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TotalGrade")
                         .HasColumnType("int");
@@ -704,13 +703,6 @@ namespace ExaminationSystem.Persistence.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "16096978-d3a5-45be-bb63-4e05428a8ac9",
-                            RoleId = "fdf8fc8c-d111-4eb6-8259-31da89d71f93"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

@@ -2,11 +2,12 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Text.Json;
 namespace ExaminationSystem.Authentication;
 
 public class JwtProvider : IJwtProvider
 {
-    public (string token, int expiresIn) GenerateToken(ApplicationUser user)
+    public (string token, int expiresIn) GenerateToken(ApplicationUser user, IList<string> roles)
     {
         var claims = new List<Claim>
         {
@@ -16,6 +17,8 @@ public class JwtProvider : IJwtProvider
             new Claim(JwtRegisteredClaimNames.FamilyName, user.LastName),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
         };
+        // Add multiple role claims
+        claims.AddRange(roles.Select(role => new Claim("role", role)));
 
         var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("J7MfAb4WcAIMkkigVtIepIILOVJEjAcB"));
 

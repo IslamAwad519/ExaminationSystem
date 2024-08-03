@@ -25,11 +25,12 @@ public class CourseController : ControllerBase
     [HttpGet("get-instructor-courses")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(typeof(CourseResponse), StatusCodes.Status200OK)]
-    //[Authorize(Roles = "Instructor")]
+    [Authorize(Roles = DefaultRoles.Instructor)]
     public async Task<ActionResult<CourseResponse>> GetCourse()
     {
-        var userRoles = User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToList();
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        if(userId is null) 
+            return Unauthorized();
         var courses = await _courseService.GetCourseForInstructor(userId!);
 
         return courses is null
@@ -54,6 +55,7 @@ public class CourseController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(typeof(CourseResponse), StatusCodes.Status201Created)]
+    [Authorize(Roles = DefaultRoles.Instructor)]
     public async Task<ActionResult>  AddCourse([FromBody]CourseRequest request)
     {
         var newCourse = await _courseRepository.AddAsync(_mapper.Map<Course>(request));

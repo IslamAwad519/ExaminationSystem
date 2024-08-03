@@ -5,6 +5,6 @@ namespace ExaminationSystem.Services.Auth;
 
 public interface IAuthService
 {
-    Task<ResponseDto?> LoginAsync(string email, string password);
-    Task<ResponseDto?> RegisterAsync(RegisterDto registerDto);
+    Task<AuthResponse?> LoginAsync(string email, string password);
+    Task<AuthResponse?> RegisterAsync(RegisterDto registerDto);
 }

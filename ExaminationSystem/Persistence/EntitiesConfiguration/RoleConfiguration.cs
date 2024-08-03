@@ -1,7 +1,6 @@
-﻿
-namespace ExaminationSystem.Persistence.EntitiesConfiguration;
+﻿namespace ExaminationSystem.Persistence.EntitiesConfiguration;
 
-public class ApplicationRoleConfiguration : IEntityTypeConfiguration<ApplicationRole>
+public class RoleConfiguration : IEntityTypeConfiguration<ApplicationRole>
 {
     public void Configure(EntityTypeBuilder<ApplicationRole> builder)
     {
@@ -13,7 +12,7 @@ public class ApplicationRoleConfiguration : IEntityTypeConfiguration<Application
                 NormalizedName = DefaultRoles.Admin.ToUpper(),
                 ConcurrencyStamp = DefaultRoles.AdminRoleConcurrencyStamp,
             },
-                 new ApplicationRole
+           new ApplicationRole
             {
                 Id = DefaultRoles.InstructorRoleId,
                 Name = DefaultRoles.Instructor,

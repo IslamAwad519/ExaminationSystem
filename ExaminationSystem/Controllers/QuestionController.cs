@@ -10,7 +10,6 @@ namespace ExaminationSystem.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 ////[ApiExplorerSettings(IgnoreApi = true)]
-[Authorize]
 public class QuestionsController : ControllerBase
 {
     private readonly IQuestionService _questionService;
@@ -26,6 +25,7 @@ public class QuestionsController : ControllerBase
 
     //Add-Question
     [HttpPost]
+    [Authorize(Roles = DefaultRoles.Instructor)]
     public async Task<IActionResult> AddQuestion([FromBody] CreateQuestionDto createQuestionDto)
     {
         if (createQuestionDto == null)
@@ -38,8 +38,10 @@ public class QuestionsController : ControllerBase
         var questionReposnse = _mapper.Map<QuestionDto>(question);
         return CreatedAtAction(nameof(GetQuestionById), new { id = newQuestion.Id }, questionReposnse);
     }
-    //Get-Question
+    
+    //Get-Question-add-with-instructor
     [HttpGet]
+    [Authorize(Roles = DefaultRoles.Instructor)]
     public async Task<IActionResult> GetQuestionById(int id)
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -55,9 +57,11 @@ public class QuestionsController : ControllerBase
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [Authorize(Roles = DefaultRoles.Instructor)]
     public async Task<IActionResult> DeleteQuestion([FromRoute] int id)
     {
-        var isDeleted = await _questionRepository.RemoveAsync(id);
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var isDeleted = await _questionService.DeleteQuestionsForSpecificInstructor(id,userId!);
         return !isDeleted
             ? NotFound()
             : NoContent();

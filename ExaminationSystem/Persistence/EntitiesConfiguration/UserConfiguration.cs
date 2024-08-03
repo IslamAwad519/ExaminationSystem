@@ -1,6 +1,6 @@
 ﻿namespace ExaminationSystem.Persistence.EntitiesConfiguration;
 
-public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
+public class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
 {
     public void Configure(EntityTypeBuilder<ApplicationUser> builder)
     {

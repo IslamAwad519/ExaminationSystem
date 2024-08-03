@@ -1,6 +1,6 @@
 ﻿namespace ExaminationSystem.Authentication;
 
-public record ResponseDto(
+public record AuthResponse(
     string Id,
     string? Email,
     string Token,

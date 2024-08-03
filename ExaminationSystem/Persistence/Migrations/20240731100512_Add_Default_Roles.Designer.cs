@@ -4,6 +4,7 @@ using ExaminationSystem.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExaminationSystem.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240731100512_Add_Default_Roles")]
+    partial class Add_Default_Roles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -171,7 +174,7 @@ namespace ExaminationSystem.Persistence.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@TEST.COM",
                             NormalizedUserName = "ADMIN@TEST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENg1YNyZwDTiN1671zRpHxoM7EfNu/HDEZCWRbeMxPeZCs9DvLBfCPD6dcRYYtQgiA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJhkYTzC4H4lRoGeLpUg5RQRqWNVzntxYyOx0GdEusLCXgphEtrwjjIw5HvDncH6Tg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "71E18D851D214F5B96D32DA0E566B629",
                             TwoFactorEnabled = false,
@@ -307,10 +310,6 @@ namespace ExaminationSystem.Persistence.Migrations
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TotalGrade")
                         .HasColumnType("int");
