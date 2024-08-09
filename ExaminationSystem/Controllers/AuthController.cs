@@ -15,6 +15,7 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginDto request)
     {
+        ////throw new Exception("throw excepetion here");
         var result = await _authService.LoginAsync(request.Email, request.Password);
 
         return result is null 

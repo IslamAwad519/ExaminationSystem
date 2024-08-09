@@ -10,6 +10,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser,Applicatio
         : base(options)
     {
         _httpContextAccessor = httpContextAccessor;
+
     }
 
     //add DbSets here
@@ -35,9 +36,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser,Applicatio
         modelBuilder.Entity<Question>()
             .Property(q => q.QuestionLevel)
             .HasConversion<int>();  // You can use HasConversion<string>() if you prefer integer storage
-
-
-
 
         base.OnModelCreating(modelBuilder);
     }

@@ -1,3 +1,5 @@
+using ExaminationSystem.Middlewares;
+
 var builder = WebApplication.CreateBuilder(args);
 {
     // Add services to the container.
@@ -26,6 +28,7 @@ var app = builder.Build();
     //app.MapIdentityApi<ApplicationUser>();
 
     app.MapControllers();
+    app.UseMiddleware<GlobalErrorHandlingMiddleware>();
 
     app.Run();
 }
